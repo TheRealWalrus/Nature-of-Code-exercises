@@ -35,7 +35,7 @@ void draw() {
   friction.setMag(frictionMag);
   car.applyForce(friction);
   car.update();
-  println(frictionMag);
+  //println(car.acceleration.x);
 }
 
 class Car {
