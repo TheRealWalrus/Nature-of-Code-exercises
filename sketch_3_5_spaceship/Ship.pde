@@ -11,18 +11,6 @@ class Ship {
     acceleration = new PVector(0, 0);
     
   }
-
-  /*void display() {
-    stroke(255);
-    pushMatrix();
-    translate(location.x, location.y);
-    rotate(dir);
-    line(location.x, location.y - 15, location.x - 10, location.y + 15);
-    line(location.x, location.y - 15, location.x + 10, location.y + 15);
-    line(location.x - 8, location.y + 10, location.x + 8, location.y + 10);
-    popMatrix();
-  }*/
-  
     void display() {
     stroke(255);
     pushMatrix();
@@ -42,12 +30,16 @@ class Ship {
         dir -= 0.1;
       } else if (keyCode == RIGHT) { // If it’s the right arrow
         dir += 0.1;
+      } else if (keyCode == UP) {
+        PVector thrust = new PVector(0.05 * cos(dir + 1.5 * PI), 0.05 * sin(dir + 1.5 * PI));
+        applyForce(thrust);
       }
     }
 
     friction();
 
     velocity.add(acceleration);
+    velocity.limit(4);
     location.add(velocity);
   }
 
