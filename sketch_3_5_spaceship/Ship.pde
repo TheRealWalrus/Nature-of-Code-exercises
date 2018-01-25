@@ -2,16 +2,18 @@ class Ship {
   PVector location;
   PVector velocity;
   PVector acceleration;
-  
+
   float dir = 0;
-  
+  float angVel = 0.1;
+
+  boolean isLeft, isRight, isUp, isDown;
+
   Ship(float _x, float _y) {
     location = new PVector(_x, _y);
     velocity = new PVector(0, - 4);
     acceleration = new PVector(0, 0);
-    
   }
-    void display() {
+  void display() {
     stroke(255);
     pushMatrix();
     translate(location.x, location.y);
@@ -25,15 +27,23 @@ class Ship {
   void update() {
     acceleration.mult(0);
 
-    if (keyPressed && (key == CODED)) { // If it’s a coded key
-      if (keyCode == LEFT) { // If it’s the left arrow
-        dir -= 0.1;
-      } else if (keyCode == RIGHT) { // If it’s the right arrow
-        dir += 0.1;
-      } else if (keyCode == UP) {
-        PVector thrust = new PVector(0.05 * cos(dir + 1.5 * PI), 0.05 * sin(dir + 1.5 * PI));
-        applyForce(thrust);
-      }
+    /*if (keyPressed && (key == CODED)) { // If it’s a coded key
+     if (keyCode == LEFT) { // If it’s the left arrow
+     dir -= 0.1;
+     } else if (keyCode == RIGHT) { // If it’s the right arrow
+     dir += 0.1;
+     } else if (keyCode == UP) {
+     PVector thrust = new PVector(0.05 * cos(dir + 1.5 * PI), 0.05 * sin(dir + 1.5 * PI));
+     applyForce(thrust);
+     }
+     }*/
+
+    //x = constrain(x + v*(int(isRight) - int(isLeft)), r, width  - r);
+
+    dir = dir + angVel * (int(isRight) - int(isLeft));
+    if (isUp) {
+      PVector thrust = new PVector(0.05 * cos(dir + 1.5 * PI), 0.05 * sin(dir + 1.5 * PI));
+      applyForce(thrust);
     }
 
     friction();
@@ -56,5 +66,26 @@ class Ship {
       force.setMag(- velocity.mag());
     }
     applyForce(force);
+  }
+
+
+
+  boolean setMove(int k, boolean b) {
+    switch (k) {
+    case UP:
+      return isUp = b;
+
+    case DOWN:
+      return isDown = b;
+
+    case LEFT:
+      return isLeft = b;
+
+    case RIGHT:
+      return isRight = b;
+
+    default:
+      return b;
+    }
   }
 }

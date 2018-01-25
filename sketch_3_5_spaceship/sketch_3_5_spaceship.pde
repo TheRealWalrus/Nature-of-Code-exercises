@@ -11,3 +11,11 @@ void draw() {
   ship.update();
   println(ship.dir);
 }
+
+void keyPressed() {
+  ship.setMove(keyCode, true);
+}
+
+void keyReleased() {
+  ship.setMove(keyCode, false);
+}
