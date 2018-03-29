@@ -59,26 +59,34 @@ class Particle {
   }
 
   void display() {
-    //stroke(0, lifespan);
-    //fill(0, lifespan);
-    //ellipse(location.x, location.y, 8, 8);
-
     pushMatrix();
     translate(location.x, location.y);
     rotate(angle);
-    //stroke(255, 0, 0);
-    //rectMode(CENTER);
+    stroke(255, 0, 0);
+    noFill();
+    rectMode(CENTER);
     //rect(0, 0, 16, 32);
 
-    rectMode(CORNER);
-    noStroke();
-    fill(240, 175, 70, lifespan);
-    rect(-4, 12, 8, -20);
+    color flowerGreen = color(60, 200, 80, lifespan);
+    color flowerPetal = color(255, 0, 0, lifespan);
+    color flowerCenter = color(255, 255, 0, lifespan);
 
-    ellipse(-4, 12, 8, 8);
-    ellipse(4, 12, 8, 8);
-    fill(232, 126, 218, lifespan);
-    ellipse(0, -10, 9, 12);
+    stroke(flowerGreen);
+    line(0, 16, 0, -8);
+
+    stroke(0, lifespan);
+    fill(flowerPetal);
+    ellipse(-4, -12, 8, 8);
+    ellipse(4, -12, 8, 8);
+    ellipse(-4, -4, 8, 8);
+    ellipse(4, -4, 8, 8);
+
+    fill(flowerCenter);
+    ellipse(0, -8, 8, 8);
+
+    fill(flowerGreen);
+    ellipse(4, 6, 8, 4);
+
     popMatrix();
   }
 
