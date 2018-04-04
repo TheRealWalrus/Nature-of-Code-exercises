@@ -27,19 +27,6 @@ class Ship {
   void update() {
     acceleration.mult(0);
 
-    /*if (keyPressed && (key == CODED)) { // If it’s a coded key
-     if (keyCode == LEFT) { // If it’s the left arrow
-     dir -= 0.1;
-     } else if (keyCode == RIGHT) { // If it’s the right arrow
-     dir += 0.1;
-     } else if (keyCode == UP) {
-     PVector thrust = new PVector(0.05 * cos(dir + 1.5 * PI), 0.05 * sin(dir + 1.5 * PI));
-     applyForce(thrust);
-     }
-     }*/
-
-    //x = constrain(x + v*(int(isRight) - int(isLeft)), r, width  - r);
-
     dir = dir + angVel * (int(isRight) - int(isLeft));
     if (isUp) {
       PVector thrust = new PVector(0.05 * cos(dir + 1.5 * PI), 0.05 * sin(dir + 1.5 * PI));
@@ -51,7 +38,8 @@ class Ship {
     velocity.add(acceleration);
     velocity.limit(4);
     location.add(velocity);
-
+    
+    //TORUS TOPOLOGY
     if (location.x > width + 15) {
       location.x -= width + 30;
     } else if (location.x < - 15) {
