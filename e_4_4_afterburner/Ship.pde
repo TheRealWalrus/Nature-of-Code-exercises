@@ -10,17 +10,22 @@ class Ship {
 
   Ship(float _x, float _y) {
     location = new PVector(_x, _y);
-    velocity = new PVector(0, - 4);
+    velocity = new PVector(0, 0);
     acceleration = new PVector(0, 0);
   }
   void display() {
     stroke(255);
+    fill(0);
     pushMatrix();
     translate(location.x, location.y);
     rotate(dir);
-    line(0, - 15, - 10, 15);
-    line(0, - 15, 10, 15);
-    line(- 8, 10, 8, 10);
+    beginShape();
+    vertex(0, - 15);
+    vertex(- 10, 15);
+    vertex(- 8, 10);
+    vertex(8, 10);
+    vertex(10, 15);
+    endShape(CLOSE);
     popMatrix();
   }
 
@@ -31,6 +36,16 @@ class Ship {
     if (isUp) {
       PVector thrust = new PVector(0.05 * cos(dir + 1.5 * PI), 0.05 * sin(dir + 1.5 * PI));
       applyForce(thrust);
+      
+      //AFTERBURNER
+      PVector flameDir = PVector.fromAngle(dir);
+      flameDir.rotate(PI * 0.5);
+      flameDir.setMag(3);
+      PVector flameOrigo = flameDir.copy();
+      flameDir.rotate(random(-0.1 * PI, 0.1 * PI));
+      flameOrigo.setMag(8);
+      flameOrigo.add(location);
+      particles.add(new Particle(flameOrigo, flameDir));
     }
 
     friction();
@@ -38,14 +53,14 @@ class Ship {
     velocity.add(acceleration);
     velocity.limit(4);
     location.add(velocity);
-    
+
     //TORUS TOPOLOGY
     if (location.x > width + 15) {
       location.x -= width + 30;
     } else if (location.x < - 15) {
       location.x += width + 30;
     }
-    
+
     if (location.y > height + 15) {
       location.y -= height + 30;
     } else if (location.y < -15) {
