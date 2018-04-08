@@ -1,7 +1,7 @@
 class PSystem {
   ArrayList<Particle> particles; 
   PVector location;
-  float scl = 40;
+  float scl = 100;
   float res = 5;
 
   PSystem(PVector _location) {
@@ -15,22 +15,10 @@ class PSystem {
     }
   }
 
-  void display() {
-    rectMode(CENTER);
-    fill(255);
-    noStroke();
-    rect(location.x, location.y, scl, scl);
-  }
-
-  void update() {
+  void run() {
     for (int i = particles.size() - 1; i >= 0; i--) {
       Particle part = particles.get(i);
       part.run();
     }
-  }
-
-  void run() {
-    display();
-    update();
   }
 }
