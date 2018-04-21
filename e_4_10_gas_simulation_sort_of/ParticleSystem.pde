@@ -5,7 +5,7 @@ class ParticleSystem {
   ParticleSystem() {
     //origin = position.copy();
     particles = new ArrayList<Particle>();
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 20; i++) {
       PVector origin = new PVector(random(width), random(height));
       particles.add(new Particle(origin));
     }

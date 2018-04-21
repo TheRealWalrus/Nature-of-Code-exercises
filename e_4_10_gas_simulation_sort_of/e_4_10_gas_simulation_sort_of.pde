@@ -12,8 +12,8 @@ void draw() {
   //ps.addParticle();
 
   // Apply gravity force to all Particles
-  //PVector gravity = new PVector(0, 0.1);
-  PVector gravity = new PVector(0, 0.0);
+  PVector gravity = new PVector(0, 0.1);
+  //PVector gravity = new PVector(0, 0.0);
   ps.applyForce(gravity);
   lid.run();
   //for (int i = 0; i < repellers.length; i++) {

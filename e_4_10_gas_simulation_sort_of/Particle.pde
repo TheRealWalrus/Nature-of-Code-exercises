@@ -36,12 +36,18 @@ class Particle {
   // Method to update position
   void update() {
     velocity.add(acceleration);
+    velocity.limit(5);
     position.add(velocity);
     acceleration.mult(0);
     //lifespan -= 2.0;
     
+    float heat = 2;
+    
+    position.x += random(-heat, heat);
+    position.x += random(-heat, heat);
+    
     position.x = constrain(position.x, r, width - r);
-    position.y = constrain(position.y, r, height - r);
+    position.y = constrain(position.y, lid.location + r, height - r);
     
   }
 
@@ -66,8 +72,8 @@ class Particle {
     PVector dir = PVector.sub(position, p.position);      // Calculate direction of force
     float d = dir.mag();                       // Distance between objects
     dir.normalize();                           // Normalize vector (distance doesn't matter here, we just want this vector for direction)
-    d = constrain(d, 5, 100);                    // Keep distance within a reasonable range
-    float force = -1 * G / (d * d);            // Repelling force is inversely proportional to distance
+    d = constrain(d, 5, 100000);                    // Keep distance within a reasonable range
+    float force = 1 * G / (d * d);            // Repelling force is inversely proportional to distance
     dir.mult(force);                           // Get force vector --> magnitude * direction
     return dir;
   }
