@@ -42,18 +42,11 @@ class Particle {
   }
 
   // Method to display
-  void render() {
+  void render() {  
+    int rainRes = 50;
+    hue = pos.y % rainRes;
+    hue = map(hue, 0, rainRes, 0, 360);
     
-    int rainRes = 100;
-    hue = pos.y - startPos.y;
-    while (hue > rainRes) {
-      hue -= 100;
-    }
-    
-    
-    hue = map(hue, rainRes, 0, 360, 0);
-    //hue = random(360);
-
     imageMode(CENTER);
     colorMode(HSB, 360, 100, 100);
     tint(hue, 100, 100, lifespan);

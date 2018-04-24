@@ -10,13 +10,13 @@
 /* @pjs preload="processingjs/chapter04/_4_08_ParticleSystemSmoke/data/texture.png"; */
 
 ParticleSystem ps;
-Particle testParticle;
+//Particle testParticle;
 
 void setup() {
   size(640, 360, P2D);
   PImage img = loadImage("texture.png");
   ps = new ParticleSystem(0, new PVector(width/2, height-75), img);
-  testParticle = new Particle(new PVector(mouseX, mouseY), img);
+  //testParticle = new Particle(new PVector(width/2, height/2), img);
 }
 
 void draw() {
@@ -31,8 +31,8 @@ void draw() {
     ps.addParticle();
   }
   
-  testParticle.test();
-  testParticle.render();
+  //testParticle.test();
+  //testParticle.render();
   
   // Draw an arrow representing the wind force
   drawVector(wind, new PVector(width/2, 50, 0), 500);
