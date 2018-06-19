@@ -47,7 +47,6 @@ class Vehicle {
     desired.mult(maxspeed);
     PVector steer = PVector.sub(desired, velocity);
     steer.limit(maxforce);
-    steer.rotate(PI);
     applyForce(steer);
   }
 
