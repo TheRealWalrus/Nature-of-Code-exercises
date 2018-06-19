@@ -12,7 +12,7 @@ class Vehicle {
     velocity = new PVector(0, 0);
     location = new PVector(x, y);
     r = 8.0;
-    maxspeed = 2;        //    Arbitrary values for maxspeed and force; try varying these!
+    maxspeed = 4;        //    Arbitrary values for maxspeed and force; try varying these!
     maxforce = 0.1;
   }
 
@@ -21,6 +21,20 @@ class Vehicle {
     velocity.limit(maxspeed);
     location.add(velocity);
     acceleration.mult(0);
+
+    //BOUNDARY
+
+    //if (location.x < boundary) {
+    //  location.x = boundary;
+    //} else if (location.x > width - boundary) {
+    //  location.x = width - boundary;
+    //}
+
+    //if (location.y < boundary) {
+    //  location.y = boundary;
+    //} else if (location.y > height - boundary) {
+    //  location.y = height - boundary;
+    //}
   }
 
   void applyForce(PVector force) {  //  Newton's second law; we could divide by mass if we wanted.
@@ -33,6 +47,7 @@ class Vehicle {
     desired.mult(maxspeed);
     PVector steer = PVector.sub(desired, velocity);
     steer.limit(maxforce);
+    //steer.rotate(PI);
     applyForce(steer);
   }
 
