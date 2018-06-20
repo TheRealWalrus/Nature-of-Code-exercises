@@ -12,29 +12,29 @@ class Vehicle {
     velocity = new PVector(0, 0);
     location = new PVector(x, y);
     r = 8.0;
-    maxspeed = 4;        //    Arbitrary values for maxspeed and force; try varying these!
-    maxforce = 0.1;
   }
 
   void update() {         //  Our standard "Euler integration" motion model
+    int tile = field.currentTile(location);
+
+    if (tile == 0) { //water
+      maxspeed = 2;
+      maxforce = 0.02;
+    } else if (tile == 1) { //forrest
+      maxspeed = 2;
+      maxforce = 0.1;
+    } else if (tile == 2) { //mud
+      maxspeed = 4;
+      maxforce = 0.2;
+    } else { //concrete
+      maxspeed = 4;
+      maxforce = 0.1;
+    }
+
     velocity.add(acceleration);
     velocity.limit(maxspeed);
     location.add(velocity);
     acceleration.mult(0);
-
-    //BOUNDARY
-
-    //if (location.x < boundary) {
-    //  location.x = boundary;
-    //} else if (location.x > width - boundary) {
-    //  location.x = width - boundary;
-    //}
-
-    //if (location.y < boundary) {
-    //  location.y = boundary;
-    //} else if (location.y > height - boundary) {
-    //  location.y = height - boundary;
-    //}
   }
 
   void applyForce(PVector force) {  //  Newton's second law; we could divide by mass if we wanted.
