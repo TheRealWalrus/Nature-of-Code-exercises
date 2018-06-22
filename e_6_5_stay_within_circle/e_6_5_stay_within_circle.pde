@@ -7,6 +7,10 @@ void setup() {
 
 void draw() {
   background(0);
+  noFill();
+  stroke(255);
+  ellipse(width / 2, height / 2, height, height);
+  
   vehicle.update();
   vehicle.wander();
   vehicle.display();
@@ -14,6 +18,6 @@ void draw() {
 
 void keyPressed() {
   if (key == 'd') {
-    vehicle.debug = vehicle.debug ? false : true;
+    vehicle.debug = !vehicle.debug;
   }
 }
