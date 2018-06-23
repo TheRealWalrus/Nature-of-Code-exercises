@@ -2,7 +2,11 @@ Vehicle vehicle;
 
 void setup() {
   size(640, 480, P2D);
-  vehicle = new Vehicle(width / 2, height / 2);
+  PVector origo = new PVector(width /2, height / 2);
+  PVector spawnPoint = PVector.random2D();
+  spawnPoint.setMag(random(height / 4));
+  spawnPoint.add(origo);
+  vehicle = new Vehicle(spawnPoint.x, spawnPoint.y);
 }
 
 void draw() {

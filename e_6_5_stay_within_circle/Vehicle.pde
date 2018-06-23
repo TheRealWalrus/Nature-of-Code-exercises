@@ -7,8 +7,9 @@ class Vehicle { //<>//
   float maxforce;
   float maxspeed;
 
-  boolean debug = false;
+  boolean debug = true;
   PVector targetForce;
+  boolean inside = true;
 
   Vehicle(float x, float y) {
     acceleration = new PVector(0, 0);
@@ -16,8 +17,9 @@ class Vehicle { //<>//
     location = new PVector(x, y);
     r = 8.0;
     maxspeed = 4;        //    Arbitrary values for maxspeed and force; try varying these!
-    maxforce = 0.1;
+    maxforce = 0.2;
     targetForce = PVector.random2D();
+    targetForce.setMag(50);
   }
 
   void update() {         //  Our standard "Euler integration" motion model
@@ -41,21 +43,34 @@ class Vehicle { //<>//
   }
 
   void wander() {
-    
+
     int spacing = 50;
     PVector origo =  new PVector(width / 2, height / 2);
-    
-    if (location.dist(origo) > height / 2 - spacing) {
-      float angle = PVector.angleBetween(PVector.sub(location, origo), targetForce);
-      targetForce.rotate(2 * PI - angle * 2);
+    PVector radialVector =  PVector.sub(location, origo);
+    float angle = PVector.angleBetween(radialVector, velocity);
+    angle = constrain(angle, 0, 0.5);
+
+
+    if (radialVector.mag() > height / 2 - spacing) {
+      if (inside) {
+        targetForce.rotate(PI - angle * 2);
+        inside = false;
+        //println(angle);
+      }
+    } else {
+      inside = true;
     }
-        
-    seek(targetForce);
-  
+    
+
+
+    seek(PVector.add(targetForce, location));
+
     if (debug) {
       noFill();
       stroke(255, 0, 0);
       ellipse(width / 2, height / 2, height - 2 * spacing, height - 2 * spacing);
+      
+      line(location.x, location.y, location.x + targetForce.x, location.y + targetForce.y);
     }
   }
 
