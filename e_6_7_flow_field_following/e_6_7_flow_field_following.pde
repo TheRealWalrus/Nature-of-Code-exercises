@@ -1,29 +1,36 @@
-//vehicle array to be created
-
 Field field;
-Vehicle vehicle;
-boolean debug = true;
+ArrayList<Vehicle> vehicles;
+boolean debug = false;
 
 void setup() {
   size(640, 480, P2D);
   field = new Field();
+  vehicles = new ArrayList();
 }
 
 void draw() {
-  background(0);
+  background(#87CEEB);
+  field.update();
   if (debug)
     field.display();
-    
-  vehicle.update();
-  vehicle.seek();
-  vehicle.display();
-}
 
-void mouseClicked() {
+  for (Vehicle element : vehicles) {
+    element.update();
+    element.seek();
+    element.display();
+  }
   
+  if (mousePressed) {
+      vehicles.add(new Vehicle(mouseX, mouseY));
+  }
 }
 
 void keyPressed() {
-  if (key == 'd')
+  if (key == 'd') {
     debug = !debug;
+  } else if (key == 'c') {
+    vehicles.clear();
+  } else if (key == 'a') {
+    field.animate = !field.animate;
+  }
 }

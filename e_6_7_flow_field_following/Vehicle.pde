@@ -11,7 +11,7 @@ class Vehicle {
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
     location = new PVector(x, y);
-    r = 8.0;
+    r = 6.0;
     maxspeed = 4;
     maxforce = 0.1;
   }
@@ -21,6 +21,18 @@ class Vehicle {
     velocity.limit(maxspeed);
     location.add(velocity);
     acceleration.mult(0);
+
+    if (location.x - r > width) {
+      location.x -= width + 2 * r;
+    } else if (location.x + r < 0) {
+      location.x += width + 2 * r;
+    }
+
+    if (location.y - r > height) {
+      location.y -= height + 2 * r;
+    } else if (location.y + r < 0) {
+      location.y += height + 2 * r;
+    }
   }
 
   void applyForce(PVector force) {  //  Newton's second law; we could divide by mass if we wanted.
@@ -42,8 +54,8 @@ class Vehicle {
     //Vehicle is a triangle pointing in the direction of velocity; 
     //since it is drawn pointing up, we rotate it an additional 90 degrees.
     float theta = velocity.heading() + PI/2;    
-    fill(255, 150, 0);
-    stroke(255);
+    fill(#8B4513);
+    stroke(0);
     pushMatrix();
     translate(location.x, location.y);
     rotate(theta);

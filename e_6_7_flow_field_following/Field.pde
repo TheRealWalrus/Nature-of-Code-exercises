@@ -5,25 +5,34 @@ class Field {
   int tileWidth = width / scl;
   int tileHeight = height / scl;
   //int currentTile = 0;
-
+  float zoff = 0;
+  boolean animate = true;
+  
   Field() {
-    for (int i = 0; i < scl; i++) {
-      for (int j = 0; j < scl; j++) {
-        matrix[i][j] = PVector.random2D();
-        //PVector location = new PVector(i * tileWidth + tileWidth / 2, j * tileHeight + tileHeight / 2);
-        //PVector origo = new PVector(width / 2, height / 2);
-        //matrix[i][j] = PVector.sub(origo, location);
-      }
-    }
   }
-
+  
+  void update() {
+    float xoff = 0;
+    for (int i = 0; i < scl; i++) {
+      float yoff = 0;
+      for (int j = 0; j < scl; j++) {
+        float theta = map(noise(xoff, yoff, zoff), 0, 1, 0, TWO_PI);
+        matrix[i][j] = new PVector(cos(theta), sin(theta));   //Polar to Cartesian coordinate transformation to get x and y components of the vector
+        yoff += 0.1;
+      }
+      xoff += 0.1;
+    }
+    if (animate)
+      zoff += 0.02;
+  }
+  
   void display() {
     for (int i = 0; i < scl; i++) {
       for (int j = 0; j < scl; j++) {
         pushMatrix();
         translate(i * tileWidth + tileWidth / 2, j * tileHeight + tileHeight / 2);
         rotate(matrix[i][j].heading());
-        stroke(255);
+        stroke(0);
         line(-10, 0, 10, 0);
         line(10, 0, 7, 3);
         line(10, 0, 7, -3);
@@ -36,7 +45,7 @@ class Field {
     PVector vLoc = _vLoc.copy();
     vLoc.x = constrain(vLoc.x, 0, width);
     vLoc.y = constrain(vLoc.y, 0, height);
-    
+
     for (int i = 0; i < scl; i++) {
       for (int j = 0; j < scl; j++) {
         if (vLoc.x >= i * tileWidth && vLoc.x <= (i + 1) * tileWidth &&
