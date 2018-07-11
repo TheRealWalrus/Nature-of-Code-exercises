@@ -3,7 +3,7 @@ Path path;
 
 void setup() {
   size(640, 480, P2D);
-  vehicle = new Vehicle(width / 2, height / 2);
+  vehicle = new Vehicle(0, height / 2 - 70);
   path = new Path();
 }
 
@@ -13,11 +13,11 @@ void draw() {
   path.display();
   
   vehicle.update();
-  vehicle.seek(new PVector(mouseX, mouseY));
+  vehicle.follow(path);
   vehicle.display();
 
   //mouse pointer
-  fill(255, 100);
-  stroke(255);
-  ellipse(mouseX, mouseY, 40, 40);
+  //fill(255, 100);
+  //stroke(255);
+  //ellipse(mouseX, mouseY, 40, 40);
 }
