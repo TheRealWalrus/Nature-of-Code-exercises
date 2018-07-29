@@ -41,8 +41,9 @@ class Vehicle {
     //Vehicle is a triangle pointing in the direction of velocity; 
     //since it is drawn pointing up, we rotate it an additional 90 degrees.
     float theta = velocity.heading() + PI/2;    
-    fill(255, 150, 0);
-    stroke(255);
+    fill(255, 0, 0);
+    stroke(0);
+    strokeWeight(1);
     pushMatrix();
     translate(location.x, location.y);
     rotate(theta);
@@ -65,24 +66,28 @@ class Vehicle {
 
     //Step 2: Find the normal point along the path.
 
-    PVector a = p.start;
-    PVector b = p.end;
-    PVector normalPoint = getNormalPoint(predictLoc, a, b);
+    PVector target = null;
+    //Start with a very high record that can easily be beaten.
+    float worldRecord = 1000000;
 
-    //Step 3: Move a little further along the path and set a target.
+    for (int i = 0; i < p.points.size()-1; i++) {
+      PVector a = p.points.get(i);
+      PVector b = p.points.get(i+1);
+      PVector normalPoint = getNormalPoint(predictLoc, a, b);
+      if (normalPoint.x < a.x || normalPoint.x > b.x) {
+        normalPoint = b.get();
+      }
 
-    PVector dir = PVector.sub(b, a);
-    dir.normalize();
-    dir.mult(10);
-    PVector target = PVector.add(normalPoint, dir);
+      float distance = PVector.dist(predictLoc, normalPoint);
 
-    //Step 4: If we are off the path, seek that target in order to stay on the path.
-
-    float distance =
-      PVector.dist(normalPoint, predictLoc);
-    if (distance > p.radius) {
-      seek(target);
+      //If we beat the record, then this should be our target!
+      if (distance < worldRecord) {
+        worldRecord = distance;
+        target = normalPoint.get();
+      }
     }
+    
+    seek(target);
   }
 
   PVector getNormalPoint(PVector p, PVector a, PVector b) {
@@ -106,4 +111,10 @@ class Vehicle {
 
     return normalPoint;
   }
+  
+  boolean isAlive() {
+    if (location.x > width + r)
+      return true;
+    return false;
+  } 
 }

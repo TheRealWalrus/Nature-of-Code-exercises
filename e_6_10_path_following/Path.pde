@@ -1,25 +1,29 @@
-class Path {
+ class Path {
  
-//A path is only two points, start and end.
-  PVector start;
-  PVector end;
- 
-//A path has a radius, i.e. how wide it is.
+//A Path is now an ArrayList of points (PVector objects).
+  ArrayList<PVector> points;
   float radius;
  
   Path() {
-//Picking some arbitrary values to initialize the path
     radius = 20;
-    start = new PVector(0,height/3);
-    end = new PVector(width,2*height/3);
+    points = new ArrayList<PVector>();
   }
  
-  void display() {  // Display the path.
-    strokeWeight(radius*2);
-    stroke(0,100);
-    line(start.x,start.y,end.x,end.y);
-    strokeWeight(1);
-    stroke(0);
-    line(start.x,start.y,end.x,end.y);
+//This function allows us to add points to the path.
+  void addPoint(float x, float y) {
+    PVector point = new PVector(x,y);
+    points.add(point);
+  }
+ 
+//Display the path as a series of points.
+  void display() {
+    stroke(#8B4513);
+    strokeWeight(radius * 2);
+    noFill();
+    beginShape();
+    for (PVector v : points) {
+      vertex(v.x,v.y);
+    }
+    endShape();
   }
 }
