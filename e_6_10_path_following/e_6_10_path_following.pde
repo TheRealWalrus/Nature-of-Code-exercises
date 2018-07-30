@@ -1,6 +1,6 @@
 Vehicle vehicle;
 ArrayList<Vehicle> vehicles;
-
+Spawn spawn;
 
 Path path;
 
@@ -9,16 +9,13 @@ void setup() {
   vehicle = new Vehicle(0, height / 2 - 70);
   path = new Path();
   vehicles = new ArrayList<Vehicle>();
-  
-  path.addPoint(0, height / 2);
-  path.addPoint(width * 1 / 3, height * 2 / 3);
-  path.addPoint(width * 2 / 3, height * 1 / 3);
-  path.addPoint(width, height / 2);
+  spawn = new Spawn();
 }
 
 void draw() {
   background(#228B22);
-
+  
+  spawn.run();
   path.display();
 
   for (int i = 0; i < vehicles.size(); i++) {
@@ -37,5 +34,11 @@ void draw() {
 }
 
 void mouseClicked() {
-  vehicles.add(new Vehicle(mouseX, mouseY));
+  path.insertPoint(mouseX, mouseY);
+}
+
+void keyPressed() {
+  if (key == 32) {
+    path.init();
+  }
 }

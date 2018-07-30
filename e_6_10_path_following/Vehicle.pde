@@ -8,12 +8,13 @@ class Vehicle {
   float maxspeed;
 
   Vehicle(float x, float y) {
+    maxspeed = 4;
+    maxforce = 0.2;
+
     acceleration = new PVector(0, 0);
-    velocity = new PVector(0, 0);
+    velocity = new PVector(maxspeed, 0);
     location = new PVector(x, y);
     r = 8.0;
-    maxspeed = 4;
-    maxforce = 0.1;
   }
 
   void update() {         //  Our standard "Euler integration" motion model
@@ -74,7 +75,11 @@ class Vehicle {
       PVector a = p.points.get(i);
       PVector b = p.points.get(i+1);
       PVector normalPoint = getNormalPoint(predictLoc, a, b);
-      if (normalPoint.x < a.x || normalPoint.x > b.x) {
+      //if (normalPoint.x < a.x || normalPoint.x > b.x) {
+      //  normalPoint = b.get();
+      //}
+
+      if (a.dist(b) < a.dist(normalPoint) || b.dist(a) < b.dist(normalPoint)) {
         normalPoint = b.get();
       }
 
@@ -86,8 +91,9 @@ class Vehicle {
         target = normalPoint.get();
       }
     }
-    
-    seek(target);
+    if (worldRecord > p.radius) {
+      seek(target);
+    }
   }
 
   PVector getNormalPoint(PVector p, PVector a, PVector b) {
@@ -111,10 +117,10 @@ class Vehicle {
 
     return normalPoint;
   }
-  
+
   boolean isAlive() {
     if (location.x > width + r)
       return true;
     return false;
-  } 
+  }
 }
