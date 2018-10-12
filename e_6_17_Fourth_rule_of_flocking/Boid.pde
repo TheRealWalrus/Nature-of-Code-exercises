@@ -144,7 +144,7 @@ class Boid {
   // Method checks for nearby boids and steers away
   PVector separate (ArrayList<Boid> boids) {
     float desiredseparation = 25.0f;
-    PVector steer = new PVector(0, 0, 0);
+    PVector steer = new PVector(0, 0);
     int count = 0;
     // For every boid in the system, check if it's too close
     for (Boid other : boids) {
@@ -226,8 +226,8 @@ class Boid {
     int count = 0;
     for (Boid other : boids) {
 
-      if (this.sees(other)) {       //<>//
-        sum.add(other.location);
+      if (this.sees(other)) {      
+        sum.add(other.location); //<>//
         count++;
       }
     }
@@ -235,10 +235,9 @@ class Boid {
     PVector force = this.velocity.copy();
     force.normalize();
     force.sub(sum);
-    //force.mult(10);
     
     if (count > 0) {
-      sum.div(count);
+      //sum.div(count);
       return force;  // Steer towards the location
     } else {
       return new PVector(0, 0);
