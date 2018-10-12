@@ -37,19 +37,34 @@ class GOL {
   void generate() {
     int[][] next = new int[columns][rows];
 
-    for (int x = 1; x < columns - 1; x++) {
-      for (int y = 1; y < rows - 1; y++) {
+    for (int x = 0; x < columns; x++) {
+      for (int y = 0; y < rows; y++) {
 
         int neighbors = 0;
 
-        for (int i = -1; i <= 1; i++) {
-          for (int j = -1; j <= 1; j++) {
 
-            //Add up all the neighbors’ states.
+          for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
 
-            neighbors += board[x+i][y+j];
+              //Add up all the neighbors’ states.
+              int toCheckX = x+i;
+              int toCheckY = y+j;
+
+              if (toCheckX < 0) {
+                toCheckX = columns - 1;
+              } else if (toCheckX > columns - 1) {
+                toCheckX = 0;
+              }
+
+              if (toCheckY < 0) {
+                toCheckY = rows - 1;
+              } else if (toCheckY > rows - 1) {
+                toCheckY = 0;
+              }
+
+              neighbors += board[toCheckX][toCheckY];
+            }
           }
-        }
 
         neighbors -= board[x][y];
 
