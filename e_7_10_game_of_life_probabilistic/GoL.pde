@@ -69,8 +69,8 @@ class GOL {
 
         neighbors -= board[x][y];
 
-        if      ((board[x][y] == 1) && (neighbors <  2)) next[x][y] = 0;
-        else if ((board[x][y] == 1) && (neighbors >  3)) next[x][y] = 0;
+        if      ((board[x][y] == 1) && (neighbors <  2) && (random(1) > 0.2)) next[x][y] = 0;
+        else if ((board[x][y] == 1) && (neighbors >  3) && (random(1) > 0.4)) next[x][y] = 0;
         else if ((board[x][y] == 0) && (neighbors == 3)) next[x][y] = 1;
         else next[x][y] = board[x][y];
       }
