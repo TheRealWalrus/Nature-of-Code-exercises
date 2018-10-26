@@ -13,3 +13,14 @@ void draw() {
 void mouseClicked() {
   snowFlake.generate();
 }
+
+void keyPressed() {
+  switch(key) {
+  case 'c': 
+    setup();
+    break;
+    case 'r':
+    snowFlake.toggleRotation();
+    break;
+  }
+}

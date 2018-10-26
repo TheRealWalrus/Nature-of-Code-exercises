@@ -1,13 +1,16 @@
 class KochCurve { //<>//
   ArrayList<KochLine> kochLines;
+  int currentSegment;
 
   KochCurve(PVector start, PVector end) {
     kochLines = new ArrayList<KochLine>();
     kochLines.add(new KochLine(start, end));
+    currentSegment = 0;
     setColor();
   }
 
   void generate() {
+    currentSegment = 0;
     ArrayList<KochLine> newArray = new ArrayList<KochLine>();
 
     for (KochLine l : kochLines) {
@@ -24,21 +27,36 @@ class KochCurve { //<>//
       newArray.add(new KochLine(C, D));
       newArray.add(new KochLine(D, l.end));
     }
-    
+
     kochLines = newArray;
     setColor();
   }
 
   void render() {
-    for (KochLine l : kochLines) {
+    for (int i = 0; i < currentSegment; i++) {
+      KochLine l = kochLines.get(i);
       l.render();
     }
+    
+    if (animationInProgress()) {
+      currentSegment++;
+    }
   }
-  
+
   void setColor() {
     for (int i = 0; i < kochLines.size(); i++) {
       KochLine l = kochLines.get(i);
       l.setColor(i, kochLines.size());
+    }
+  }
+  
+  boolean animationInProgress() {
+    return currentSegment < kochLines.size();
+  }
+  
+  void setSegmentRotation(float value) {
+    for (KochLine l : kochLines) {
+      l.setRotation(value);
     }
   }
 }
