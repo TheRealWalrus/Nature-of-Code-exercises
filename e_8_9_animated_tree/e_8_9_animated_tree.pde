@@ -8,6 +8,14 @@ void setup() {
 void draw() {
   background(#9DE0AD);
   tree.run();
+
+  //if (frameCount < 900) {
+  //  if (frameCount % 3 == 0)
+  //    saveFrame("output/at_####.png");
+  //} else {
+  //  println("render finished");
+  //  noLoop();
+  //}
 }
 
 void mouseClicked() {
