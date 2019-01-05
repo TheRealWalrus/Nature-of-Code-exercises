@@ -1,7 +1,5 @@
 class DNA {
-  String target = "to be or not to be";
   char[] genes = new char[target.length()];
-  float mutationRate = 0.2;
   float fitness;
 
   DNA() {
@@ -51,6 +49,6 @@ class DNA {
 
   @Override
     String toString() {
-    return(new String(genes) + " " + fitness);
+    return(new String(genes));
   }
 }
