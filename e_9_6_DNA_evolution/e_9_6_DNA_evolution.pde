@@ -1,6 +1,6 @@
 import java.util.*; //<>//
 
-float mutationRate = 0.01;
+float mutationRate = 0.05;
 int totalPopulation = 150;
 ArrayList<DNA> population = new ArrayList<DNA>();
 String target = "Follow the white rabbit.";
@@ -70,7 +70,7 @@ void draw() {
   textSize(16);
   text("Total generations: " + totalGenerations + System.lineSeparator() +
     "Avarage fitness: " + calcAvarageFitness() + System.lineSeparator() +
-    "Total generations: " + totalGenerations + System.lineSeparator() +
+    "Total population: " + totalPopulation + System.lineSeparator() +
     "Mutation rate: " + mutationRate, margin, height - 200);
     
   textSize(14);
