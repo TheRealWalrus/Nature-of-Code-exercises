@@ -32,6 +32,7 @@ void draw() {
     Box currentBox = boxes.get(i);
     
     if (currentBox.isFinished()) {
+      currentBox.killBody();
       boxes.remove(currentBox);
     }
   }

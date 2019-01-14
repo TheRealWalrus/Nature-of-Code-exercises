@@ -56,13 +56,13 @@ class Box {
     // 7. ATTACHING THE SHAPE TO THE BODY WITH THE FIXTURE
     body.createFixture(fd);
   }
-  
+
   boolean isFinished() {
     Vec2 pos = box2d.getBodyPixelCoord(body);
     if (pos.y > height + 30) {
       return true;
     }
-    
+
     return false;
   }
 
@@ -84,5 +84,9 @@ class Box {
     rect(0, 0, w, h);
 
     popMatrix();
+  }
+
+  void killBody() {
+    box2d.destroyBody(body);
   }
 }
